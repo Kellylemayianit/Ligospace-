@@ -1,13 +1,20 @@
 // js/components/common.js
 import { h } from '../core/dom.js';
 import { STATUS } from '../data/config.js';
-
+export const svg=s=>{const d=document.createElement('div');d.innerHTML=s;return d.firstChild};
 export const Badge=s=>h('span',{class:'badge b-'+s},STATUS[s]);
 export const Link=(href,text,cls='')=>h('a',{href:'#'+href,class:cls},text);
 export const Path=(...a)=>h('div',{class:'path'},a.flatMap((x,i)=>i?[h('span',{class:'arr','aria-hidden':'true'},'\u2192'),x]:[x]));
-export const Rays=()=>{const n=24;let r='';for(let i=0;i<n;i++){const a=i*360/n;r+=`<line x1="320" y1="320" x2="320" y2="${i%2?60:20}" transform="rotate(${a} 320 320)" stroke="#f2b01e" stroke-width="${i%2?3:6}" stroke-linecap="round" opacity="${i%2?.45:.8}"/>`}
- const w=document.createElement('div');w.innerHTML=`<svg viewBox="0 0 640 640" aria-hidden="true">${r}<circle cx="320" cy="320" r="120" fill="none" stroke="#f2b01e" stroke-width="3"/><circle cx="320" cy="262" r="26" fill="#f2b01e"/><path d="M270 372q50-70 100 0" fill="none" stroke="#f2b01e" stroke-width="10" stroke-linecap="round"/></svg>`;return w.firstChild};
-export const Header=cur=>{const l=[['/','Home'],['/about','About'],['/shs','Synchronized Human System'],['/future','Future Initiatives'],['/opportunities','Opportunities'],['/impact','Impact']];
- return h('header',{class:'top'},h('div',{class:'wrap'},Link('/','L.I.G.O. SPACE','brand'),h('nav',{'aria-label':'Main'},l.map(([p,t])=>h('a',{href:'#'+p,'aria-current':cur===p?'page':null},t))),Link('/engage/partner','Partner with us','btn sm')))};
-export const Footer=()=>h('footer',{},h('div',{class:'wrap'},h('h3',{},'Humanity First. Every Life Matters.'),h('p',{},'What Crowns Us: Love. From Foundation to Action.'),h('p',{},'Founder & President: Samuel M.K. \u00b7 +254 791 236 179 \u00b7 Kajiado South, Kenya'),h('p',{},'Future initiatives are shown by their actual status and are not available until legally established and authorized.')));
+export const Logo=()=>svg('<svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="none" stroke="#14284b" stroke-width="3"/><circle cx="24" cy="15" r="5" fill="#c8892b"/><path d="M11 35q13-16 26 0" fill="none" stroke="#c8892b" stroke-width="4" stroke-linecap="round"/><path d="M24 4v4M8 14l3 2M40 14l-3 2" stroke="#c8892b" stroke-width="2.5" stroke-linecap="round"/></svg>');
+export const NAV=[['/','Home'],['/about','About'],['/work','Our Work'],['/shs','Synchronized Human System'],['/education','Education'],['/opportunities','Opportunity'],['/partners','Partners'],['/stories','Stories'],['/events','Events'],['/engage/involve','Get Involved'],['/contact','Contact']];
+export const Header=cur=>h('header',{class:'top'},h('div',{class:'wrap'},
+ h('a',{href:'#/',class:'brand'},Logo(),h('span',{},'L.I.G.O.',h('br'),'SPACE')),
+ h('nav',{'aria-label':'Main'},NAV.map(([p,t])=>h('a',{href:'#'+p,'aria-current':(p===cur||(p!=='/'&&p.startsWith(cur+'/')))?'page':null},t))),
+ Link('/engage/partner','Partner with us','btn')));
+export const Footer=()=>h('footer',{},h('div',{class:'wrap'},h('div',{class:'grid'},
+ h('div',{},h('h3',{},'Site'),NAV.slice(0,6).map(([p,t])=>Link(p,t)),Link('/impact','Impact'),Link('/future','Future Initiatives')),
+ h('div',{},h('h3',{},'Social'),['TikTok','Facebook','Instagram','YouTube','LinkedIn'].map(s=>h('p',{},s))),
+ h('div',{},h('h3',{},'Contact'),h('p',{},'Samuel M.K., Founder & President'),h('p',{},'+254 791 236 179'),h('p',{},'Kajiado South, Kenya'))),
+ h('p',{},'Humanity First. Every Life Matters. What Crowns Us: Love.'),
+ h('p',{style:'font-size:.85rem'},'Future initiatives are shown by their actual status and are not available until legally established and authorized.')));
 export const Section=(title,...c)=>h('section',{},h('div',{class:'wrap'},title&&h('h2',{},title),c));
