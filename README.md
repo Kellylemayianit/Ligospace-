@@ -12,7 +12,7 @@ ES modules, no build step. Browsers block modules on file://, so serve it:
 - js/data/config.js   pathways (funnel), impact indicators, initiatives, statuses
 - js/components/      reusable UI: common, funnel form, metric, roadmap
 - js/pages/           one file per page; info.js renders the copy-driven pages from js/data/content.js
-- assets/             put hero.jpg here
+- assets/             optional photos, see assets/README.txt
 - js/main.js          routes + app shell
 
 Add a page: create js/pages/x.js, import it in main.js, add one line to `routes`.
